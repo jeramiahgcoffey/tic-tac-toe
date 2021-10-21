@@ -1,0 +1,21 @@
+:root {
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+/* Gameboard Styles */
+.board {
+    width: fit-content;
+    display: grid;
+    grid-template-columns: repeat(3, 200px);
+    grid-template-rows: repeat(3, 200px);
+    border: 3px solid black;
+}
+
+.board-element {
+    border: 1px solid black;
+}
