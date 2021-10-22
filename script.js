@@ -32,7 +32,7 @@ const Players = (() => {
     const showWinner = (gamePiece) => {
         for (let i = 0; i < playersArray.length; i++) {
             if (playersArray[i].getPiece() === gamePiece) {
-                console.log(playersArray[i]);
+                console.log(playersArray[i].getPiece() + " is the winner!");
             }
         }
     };
@@ -40,6 +40,7 @@ const Players = (() => {
 })();
 
 const gameBoard = (() => {
+    let gameOver = false;
     const board = [
         {value: "", position: 0},
         {value: "", position: 1},
@@ -57,13 +58,13 @@ const gameBoard = (() => {
     };
 
     const comparePositions = (position1, position2) => {
-        let areEqual = true;
-        for (let i = 0; i < position1.length; i++) {
-            if (!position1[i] === position2[i]) {
-                areEqual = false;
+        for (let i = 0; i < position2.length; i++) {
+            if (!position1.includes(position2[i])) {
+                console.log(position1, position2);
+                return false;
             }
-            return areEqual;
         }
+        return true;
     };
 
     const checkForWin = () => {
@@ -131,16 +132,16 @@ const displayController = (() => {
         boardElement.textContent = gameBoard.getBoard()[position].value;
         return boardElement;
     };
-    const displayBoard = (boardArray) => {
+    const displayBoard = () => {
         while (boardContainer.firstChild) {
             boardContainer.removeChild(boardContainer.lastChild);
         }
 
-        for (let i = 0; i < boardArray.length; i++) {
+        for (let i = 0; i < gameBoard.getBoard().length; i++) {
             boardContainer.appendChild(createBoardElement(i));
         }
     };
     return {displayBoard};
 })();
 
-window.onload = displayController.displayBoard(gameBoard.getBoard());
+window.onload = displayController.displayBoard();
