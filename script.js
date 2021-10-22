@@ -40,7 +40,6 @@ const Players = (() => {
 })();
 
 const gameBoard = (() => {
-    let gameOver = false;
     const board = [
         {value: "", position: 0},
         {value: "", position: 1},
@@ -60,14 +59,14 @@ const gameBoard = (() => {
     const comparePositions = (position1, position2) => {
         for (let i = 0; i < position2.length; i++) {
             if (!position1.includes(position2[i])) {
-                console.log(position1, position2);
                 return false;
             }
         }
         return true;
     };
 
-    const checkForWin = () => {
+    const checkForGameOver = () => {
+        // Check for Win
         const winningPositions = [
             [0, 1, 2],
             [0, 4, 8],
@@ -96,7 +95,15 @@ const gameBoard = (() => {
                 }
             }
         }
-        return false;
+        // Check for draw
+        for (const element of board) {
+            if (element.value == "") {
+                // GAME NOT OVER
+                return false;
+            }
+        }
+        // SHOW DRAW
+        console.log("DRAW");
     };
 
     const placePiece = (position, gamePiece) => {
@@ -105,7 +112,7 @@ const gameBoard = (() => {
                 value: `${gamePiece}`,
                 position: `${position}`,
             });
-            checkForWin();
+            checkForGameOver();
             return true;
         } else {
             console.log("ILLEGAL MOVE");
@@ -113,7 +120,6 @@ const gameBoard = (() => {
         }
     };
     const getBoard = () => board;
-
     return {placePiece, getBoard};
 })();
 
